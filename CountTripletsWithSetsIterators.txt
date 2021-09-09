@@ -1,0 +1,27 @@
+// Complete the triplets function below.
+long triplets(vector<int> a, vector<int> b, vector<int> c) {
+    long pairs = 0, apair=0, cpair=0;
+
+    set<int> am(a.begin(), a.end());
+    set<int> bm(b.begin(), b.end());
+    set<int> cm(c.begin(), c.end());
+    auto it1 = am.begin();
+    auto it2 = cm.begin();
+    for(auto x: bm){
+        while(it1 != am.end()){
+            if(*it1 > x )
+                break;
+            apair++;
+            ++it1;
+        }
+        while(it2 != cm.end()){
+            if(*it2 > x )
+                break;
+            cpair++;
+            ++it2;
+        }
+        pairs += cpair*apair;
+    }
+    return pairs;
+
+}

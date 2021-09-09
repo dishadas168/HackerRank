@@ -1,0 +1,26 @@
+string isBalanced(string s) {
+    
+
+    if(s.size()%2 == 1)
+        return "NO";
+    else{
+        stack<int> st;
+        st.push(s[0]);
+        int sum = 0;
+        for(int i=1; i<s.size(); i++){
+            sum = s[i];
+            if(st.size() > 0)
+                sum = s[i] + st.top();
+            
+            if(sum == '('+')' || sum=='{'+'}' || sum=='['+']'){
+                st.pop();
+            }else if(s[i]=='('|| s[i]=='{' || s[i]=='['){
+                st.push(s[i]);
+            }else return "NO";
+        }
+        if(st.size() == 0)
+            return "YES";
+        return "NO";
+    }
+    
+}

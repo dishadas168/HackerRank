@@ -1,0 +1,92 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+class Node {
+    public:
+        int data;
+        Node *left;
+        Node *right;
+        Node(int d) {
+            data = d;
+            left = NULL;
+            right = NULL;
+        }
+};
+
+class Solution {
+    public:
+  		Node* insert(Node* root, int data) {
+            if(root == NULL) {
+                return new Node(data);
+            } else {
+                Node* cur;
+                if(data <= root->data) {
+                    cur = insert(root->left, data);
+                    root->left = cur;
+                } else {
+                    cur = insert(root->right, data);
+                    root->right = cur;
+               }
+
+               return root;
+           }
+        }
+
+/*
+class Node {
+    public:
+        int data;
+        Node *left;
+        Node *right;
+        Node(int d) {
+            data = d;
+            left = NULL;
+            right = NULL;
+        }
+};
+
+*/
+
+    void topView(Node * root) {
+        static int r=0, l=0;
+        static map<int, tuple<int, int>> num_map;
+        
+        if(root){
+            
+            //Insert new row data
+            auto it = num_map.find(r);
+            if(it == num_map.end())
+                num_map.insert(make_pair(r, make_tuple(root->data, l)));
+            else{
+                //If row exists but at lower level, then replace
+                if(get<1>(it->second) > l){
+                    num_map.erase(it);
+                    num_map.insert(make_pair(r, make_tuple(root->data, l)));
+                }
+            }
+         
+            //Right chain
+            if(root->right){
+                r++;
+                l++;
+                topView(root->right);
+                l--;
+                r--;
+            } //Left chain
+            if(root->left){
+                r--;
+                l++;
+                topView(root->left);
+                r++;
+                l--;
+            }
+            //Print if root node
+            if(l==r && l==0){
+                for(auto x: num_map)
+                    cout<<get<0>(x.second)<<" ";    
+            }
+        }    
+    }
+
+}; //End of Solution

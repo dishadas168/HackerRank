@@ -1,0 +1,25 @@
+long candies(int n, vector<int> arr) {
+    long sum;
+    int last = 1;
+    vector<int> nums;
+    nums.push_back(1);
+    for(int i = 1; i< arr.size(); i++){
+        if(arr[i-1] < arr[i]){
+            last ++;
+        }else{
+            last = 1;
+        }   
+        nums.push_back(last);
+    }
+    sum+= max(1, nums.back());
+    last = 1;
+    for(int i = arr.size()-2; i>=0; i--){
+        if(arr[i+1] < arr[i]){
+            last ++;
+        }else{
+            last = 1;
+        }  
+        sum += max(last, nums[i]);
+    }
+    return sum;
+}

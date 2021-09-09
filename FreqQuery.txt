@@ -1,0 +1,32 @@
+// Complete the freqQuery function below.
+vector<int> freqQuery(vector<vector<int>> queries) {
+    vector<int> output;
+    map<long, int> maps;
+    for(auto x: queries){
+        
+        if(x[0] == 1) maps[x[1]] ++;
+        
+        else if(x[0] == 2 ){
+            maps[x[1]] --;
+            if(maps[x[1]] <= 0) maps.erase(maps.find(x[1]));
+        } 
+        
+        else{
+            bool found = false;
+            int i = 0;
+            for(auto y:maps){
+                if(x[1] > queries.size())
+                    break;
+                if(y.second == x[1]){
+                    output.push_back(1);
+                    found = true;
+                    break;
+                } 
+                
+            }
+            if(!found) output.push_back(0);
+        } 
+    }
+    return output;
+
+}

@@ -1,0 +1,76 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <map>
+using namespace std;
+
+string strip(string str, char ch){
+        string str2;
+        for(auto c:str){
+            if(c!=ch) str2 += c;
+        }
+        return str2;
+}
+
+vector<string> split(string str, char ch){
+    string word = "";
+    vector<string> split_words;
+    for(auto c:str){
+        if(c != ch) word += c;
+        else if(c == ch){
+            split_words.push_back(word);
+            word = "";
+        }
+    }
+    split_words.push_back(word);
+    return split_words;
+}
+    
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    
+    
+    int n, q;
+    string response;
+    map<string, string> tag_map;
+    vector<string> tags;
+    vector<string> words;
+    
+    cin>>n>>q;
+    getline(cin, response);
+    
+    while(n--){
+        
+        getline(cin, response);
+        response = strip(response, '<');
+        response = strip(response, '>');
+        words = split(response, ' ');
+        
+        if(words[0][0] == '/') tags.pop_back();
+        else tags.push_back(words[0]);
+        
+        for(int i=1; i<words.size(); i++){
+            if(words[i][0] != '=' && words[i][0] != '\"'){
+                string tag_key = "";
+                for(auto x:tags) tag_key += x + ".";
+                tag_key.pop_back();
+                tag_key += "~" + words[i];
+                tag_map[tag_key] = strip(words[i+2], '\"');
+            }
+        }
+        
+    } 
+
+    while(q--){
+        string query;
+        cin>>query;
+        if(tag_map.find(query) != tag_map.end())
+            cout<<tag_map[query]<<endl;
+        else cout<<"Not Found!"<<endl;
+    }
+    
+    
+    return 0;
+}

@@ -1,0 +1,24 @@
+int lcs( string X, string Y, int m, int n )
+{
+    if (m == 0 || n == 0)
+        return 0;
+    if (X[m-1] == Y[n-1])
+        return 1 + lcs(X, Y, m-1, n-1);
+    else
+        return max(lcs(X, Y, m, n-1), lcs(X, Y, m-1, n));
+}
+
+int commonChild(string s1, string s2) {
+    
+    string ns1 = "", ns2 = "";
+    for(auto x:s1){
+        if(s2.find(x) != string::npos) ns1 += x;
+    }
+    
+    for(auto x:s2){
+        if(s1.find(x) != string::npos) ns2 += x;
+    }
+    cout<<ns1<<" "<<ns2<<endl;
+    return lcs( ns1, ns2, ns1.size(), ns2.size());
+    
+}

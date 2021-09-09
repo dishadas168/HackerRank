@@ -1,0 +1,28 @@
+long substrCount(int n, string s) {
+    string sub;
+    set <char> sub_set;
+    long count;
+    for(int i = 0; i< s.size(); i++){
+        sub = "";
+        for(int j = i; j < s.size(); j++){
+            sub += s[j];
+            string un = uniq(sub);
+            if(un.size() == 1) count++;
+            else if(un.size() == 2 && sub[0] != sub.back()){
+                int k = j + j-i;
+                bool broken = false;
+                while(j != k){
+                    j++;
+                    if(s[j] != sub[0]){
+                        broken = true;
+                        break;
+                    }
+                }
+                if(!broken) count++;
+                break;
+            }
+        }
+    }
+    return count;
+
+}

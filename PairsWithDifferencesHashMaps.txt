@@ -1,0 +1,10 @@
+int pairs(int k, vector<int> arr) {
+    map<int, int> nmap;
+    for(auto x: arr) nmap[x]++;
+    int pairs = 0;
+    for(auto x: nmap){
+        if(nmap.find(x.first+k) != nmap.end())
+            pairs++;
+    }
+    return pairs;
+}

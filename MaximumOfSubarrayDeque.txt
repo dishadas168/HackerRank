@@ -1,0 +1,21 @@
+void printKMax(int arr[], int n, int k){
+    deque<int> maxs;
+    for (int i = 0; i < k; i++) {
+        while (!maxs.empty() && arr[i] > maxs.back()) {
+            maxs.pop_back();
+        }
+        maxs.push_back(arr[i]);
+    }
+    cout << maxs.front() << " ";
+    for (int i = k; i < n; i++) {
+        if (arr[i-k] == maxs.front()) {
+            maxs.pop_front();
+        }
+        while (!maxs.empty() && arr[i] > maxs.back()) {
+            maxs.pop_back();
+        }
+        maxs.push_back(arr[i]);
+        cout << maxs.front() << " ";
+    }
+    cout << "\n";
+}

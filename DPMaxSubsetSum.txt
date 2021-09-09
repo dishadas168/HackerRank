@@ -1,0 +1,16 @@
+// Complete the maxSubsetSum function below.
+int maxSubsetSum(vector<int> arr) {
+    vector<int> if_c, if_n_c;
+    if_c.push_back(arr[0]);
+    if_c.push_back(arr[1]);
+    if_n_c.push_back(0);
+    if_n_c.push_back(max(arr[0], 0));
+    for(int i=2; i< arr.size(); i++){
+        int temp = if_n_c.back();
+        if_n_c.push_back(max(if_n_c.back(), if_c.back()));
+        if_c.push_back(arr[i] + temp);
+        
+    }
+
+    return max(0,max(if_c.back(), if_n_c.back()));
+}

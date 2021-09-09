@@ -1,0 +1,58 @@
+void minimumBribes(vector<int> q) {
+    int bribes = 0,j;
+    map<int, int> num_map; 
+    
+    for(int i = 0; i< q.size(); i++){
+        
+       if(q[i] != i+1){
+           
+           for(j=i; j< q.size(); j++){
+               if(q[j] == i+1) break;
+           }
+           for(int k=i; k < j; k++){
+               num_map[q[k]]++;
+               bribes++;
+               if(num_map[q[k]] > 2){
+                   cout<<"Too chaotic"<<endl;
+                   return;
+               } 
+           }
+           q.erase(q.begin() + j);
+           q.insert(q.begin()+i, i+1);
+           
+       }
+    }
+    cout<<bribes<<endl;
+}
+
+int main()
+{
+    string t_temp;
+    getline(cin, t_temp);
+
+    int t = stoi(ltrim(rtrim(t_temp)));
+
+    for (int t_itr = 0; t_itr < t; t_itr++) {
+        string n_temp;
+        getline(cin, n_temp);
+
+        int n = stoi(ltrim(rtrim(n_temp)));
+
+        string q_temp_temp;
+        getline(cin, q_temp_temp);
+
+        vector<string> q_temp = split(rtrim(q_temp_temp));
+
+        vector<int> q(n);
+
+        for (int i = 0; i < n; i++) {
+            int q_item = stoi(q_temp[i]);
+
+            q[i] = q_item;
+        }
+
+        minimumBribes(q);
+    }
+
+    return 0;
+}

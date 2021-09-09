@@ -1,0 +1,32 @@
+string abbreviation(string a, string b) {
+
+    if(b.size() == 0 || a.size()==0){
+        if(b.size() == 0) return "YES";
+        else return "NO";   
+    }
+    
+    //While not the same letters, discard
+    while(a.back()!= b.back() && a.back()- ('a'-'A') != b.back()){
+        if(a.back() <'a') return "NO";
+        a.erase(a.size()-1,1);
+        if(a.size() == 0) return "NO";
+    }
+
+    //If same last letters
+    if(a.back() == b.back())
+        return abbreviation(a.substr(0, a.size()-1),
+                            b.substr(0, b.size()-1));
+
+    //If same letters with different cases
+    else{
+        //MAde upper case
+        string str2 = abbreviation(a.substr(0, a.size()-1),
+                            b.substr(0, b.size()-1));
+        if(str2 == "YES") return "YES";
+        //discarded
+        string str1 = abbreviation(a.substr(0, a.size()-1), b);
+        if(str1 == "YES") return "YES";
+        else return "NO";
+    }
+    
+}

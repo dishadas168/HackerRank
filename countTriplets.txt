@@ -1,0 +1,22 @@
+long countTriplets(vector<long> arr, long r) {
+    map<long, long> numsR, numsL;
+    map<long, long> Lmap, Rmap;
+    long count = 0;
+    
+    for(int i = arr.size()-1; i >= 0; i--){
+        if(numsR.find(arr[i]*r) != numsR.end())
+            Rmap[i] = numsR[arr[i]*r];
+        numsR[arr[i]] ++;
+    }
+    
+    for(int i = 0; i < arr.size() ; i++){
+        if(arr[i]%r == 0 && numsL.find(arr[i]/r) != numsL.end())
+            Lmap[i] = numsL[arr[i]/r];
+        numsL[arr[i]] ++;
+    }
+    
+    for(int i = 0; i< arr.size(); i++){
+        count += Lmap[i]*Rmap[i];
+    }
+    return count;
+}

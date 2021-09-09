@@ -1,0 +1,33 @@
+string isValid(string s) {
+    map<char, int> smap;
+    map<int, int> omap;
+    
+    for(auto x: s) smap[x]++;
+    
+    for(auto x: smap) omap[x.second]++;
+    for(auto x: omap) cout<<x.first<<" "<<x.second<<endl;
+
+    if(omap.size() > 2) return "NO";
+    else if(omap.size() == 1) return "YES";
+    else{
+        auto it2 = ++omap.begin();
+        auto it1 = omap.begin();
+        if(it1->first == 1 || it2->first == 1){
+            auto it0 = it1->first == 1? it1 : it2;
+            if(it0->second == 1) return "YES";
+            else return "NO";
+        }
+        else if(it1->second == 1 || it2->second == 1){
+            if(it1->first == 1 || it2->first == 1)
+                return "YES";
+            else if(abs(it1->first - it2->first) == 1)
+                return "YES";
+            else return "NO";
+        }
+
+        else{
+       
+            return "NO";
+        } 
+    }
+}

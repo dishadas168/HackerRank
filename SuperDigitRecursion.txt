@@ -1,0 +1,14 @@
+int superDigit(string n, int k) {
+     
+    if(n.size() == 1){
+        return stoi(n);
+    }
+    else{
+        long sum = 0;
+        for(auto x: n){
+            sum += x - '0';
+        }
+        sum *= k;
+        return superDigit(to_string(sum), 1);
+    }   
+}

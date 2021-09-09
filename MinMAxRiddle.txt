@@ -1,0 +1,34 @@
+// Complete the riddle function below.
+vector<long> riddle(vector<long> arr) {
+    // complete this function
+    vector<long> out;
+    queue<long> q;
+ 
+    long max = 0, min;
+    long a, b;
+    int size;
+    
+    for(auto x: arr)
+        q.push(x);      
+    
+    max = *max_element(arr.begin(), arr.end());
+    out.push_back(max);
+    
+    while(q.size() >1){
+        size = q.size();
+        max = 0;
+        for(int i=0; i< size - 1; i++){
+            a = q.front();
+            q.pop();
+            b = q.front();
+            min = std::min(a,b);
+            q.push(min);
+            if(min > max)
+                max = min;
+        }
+        out.push_back(max);
+        q.pop();  
+    }
+
+    return out;
+}
